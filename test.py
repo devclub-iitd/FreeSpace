@@ -77,4 +77,6 @@ for i in range(5):
         day_dict[curr_room] = l
     #day dict is now a dictionary of type room:list
     temp_df = pd.DataFrame.from_dict(day_dict,orient = 'index',columns = intvlist)
+    temp_df.to_html(key+".html")
     final_dict[key] = temp_df
+
