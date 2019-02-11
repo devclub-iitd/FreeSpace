@@ -31,7 +31,7 @@ for i in range(0,5): #each day
         d[rooms[k]] = l
     fd[i] = d
 
-slot_map = {1:[[0,3],[8,8.5,9]],2:[[0,3],[9.5,10,10.5]],3:[[1,2,4],[8,8.5]],4:[[1,2,4],[9,9.5]],5:[[1,2,4],[10,10.5]],6:[[1,3,4],[11,11.5]],7:[[0,2],[11,11.5],[3],[12,12.5]],8:[[0,1,4],[12,12.5]],9:[[1,4],[5,5.5],[2],[12,12.5]],10:[[1,4],[6,6.5]],11:[[0,3],[5,5.5,6]]}
+slot_map = {1:[[0,3],[8.0,8.5,9.0]],2:[[0,3],[9.5,10.0,10.5]],3:[[1,2,4],[8.0,8.5]],4:[[1,2,4],[9.0,9.5]],5:[[1,2,4],[10.0,10.5]],6:[[1,3,4],[11.0,11.5]],7:[[0,2],[11.0,11.5],[3],[12.0,12.5]],8:[[0,1,4],[12.0,12.5]],9:[[1,4],[17.0,17.5],[2],[12.0,12.5]],10:[[1,4],[18.0,18.5]],11:[[0,3],[17.0,17.5,18.0]]}
 
 def slotA(dic,room):
     for i in [0,3]: #days
@@ -44,13 +44,13 @@ def slot(cs,room_dic,room,slot_dic):
     slot_times = slot_timings[1]
     for i in slot_days:
         for j in slot_times:
-            room_dic[i][room][j] = 1
+            room_dic[i][room][float(j)] = 1
     if len(slot_timings)>2:
         slot_days = slot_timings[2]
         slot_times = slot_timings[3]
         for i in slot_days:
             for j in slot_times:
-                room_dic[i][room][j] = 1
+                room_dic[i][room][float(j)] = 1
 
 
 for index,row in filter1.iterrows():  
@@ -78,5 +78,6 @@ for i in range(5):
     #day dict is now a dictionary of type room:list
     temp_df = pd.DataFrame.from_dict(day_dict,orient = 'index',columns = intvlist)
     temp_df.to_html(key+".html")
+    # temp_df.to_json(key+".json")
     final_dict[key] = temp_df
 
