@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+    <head>
+        <title>Free Zone</title>
+        <script src ="scraper.js"></script>
+        <script src = "merger.js"></script>
+        <script>
+            var d = new Date();
+            var n = d.getDay();
+            var dic = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday"];
+            async function allFunctionRun(){
+                returnCurrDayTT();
+                accessByDOM("timewise.html","allRooms");
+            }
+            function returnCurrDayTT(){
+                var day = dic[n];
+                accessByDOM(day+".html","storage");
+            }
+        </script>
+    </head>
+    <body onload="allFunctionRun()">
+        <h1>Free Zone</h1>
+            <div id="storage"></div>
+            <div id="allRooms"></div>
+    </body>
+</html>
