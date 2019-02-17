@@ -1,4 +1,4 @@
-async function preProcessTable(id){
+function preProcessTable(id){
     var content = document.getElementById(id).innerHTML;
     var l = document.getElementById(id).childNodes;
     var tableHead; //Dataframe of the table
@@ -17,33 +17,55 @@ async function preProcessTable(id){
     }
     return finalTable;
 }
-async function merge(){
-    finalTable = await preProcessTable("storage");
+function merge(){
+    finalTable = preProcessTable("storage");
     // finalTable has element 0 as thead w+hile the other as tbody
     var table_body = finalTable[1];
     for (var i = 0,row; row = table_body.rows[i];i++){
-        var col;
+        var col;     
         var j = 1;
+        var last_ind = row.cells.length;
         while (col = row.cells[j]){
+            //console.log(j);
+            var col2
             var ct = 0;
-            while ((row.cells[j+ct]).innerHTML == (col).innerHTML){
-                ct++;
+            try{
+                while((row.cells[j+ct]).innerHTML == (col).innerHTML){
+                    ct++;
+                }
+            }catch(err){
+
             }
+            finally{
+                var temp_ct = ct;
+                ct--;
             while (ct != 0){
-                if (col.getAttribute("colSpan") == null){
-                    col.setAttribute("colSpan",1)
-                };
-                var curr_colspan = col.getAttribute("colspan");
-                row.deleteCell(j+1);
-                col.setAttribute("colspan",curr_colspan+1);
+                row.deleteCell(j);
+                // console.log(ct);
+                // if (col.getAttribute("colSpan") == null){
+                //     col.setAttribute("colSpan",1)
+                // };
+                // var curr_colspan = col.getAttribute("colspan");
+                // row.deleteCell(j+1);
+                // col.setAttribute("colspan",curr_colspan+1);
                 ct--;
             }
-            j++;
+            try{
+                row.cells[j].setAttribute("colspan",temp_ct);
+                
+            }
+            finally{
+                if (row.cells[j].innerHTML == '0'){
+                    row.cells[j].innerHTML = "Free Space(Not Counting Tuorials...)"
+                }
+                j++;
+            }
+            }
         }
     }
 }
-async function allRoomMerge(){
-    finalTable = await preProcessTable("allRooms");
+function allRoomMerge(){
+    finalTable = preProcessTable("allRooms");
     tableBody = finalTable[1];
     var start_cell,start_cell_row_index,end_row_index,end_col_index;
     end_col_index = tableBody.rows[0].cells.length;

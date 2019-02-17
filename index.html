@@ -1,25 +1,58 @@
 <!DOCTYPE html>
     <head>
         <title>Free Zone</title>
-        <script src ="scraper.js"></script>
+        <script src ="jquery-3.3.1.js"></script>
         <script src = "merger.js"></script>
+        <script src ="scraper.js"></script>
         <script>
             var d = new Date();
             var n = d.getDay();
             var dic = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday"];
-            async function allFunctionRun(){
-                returnCurrDayTT();
+            function allFunctionRun(){
+                returnCurrDayTT()
                 accessByDOM("timewise.html","allRooms");
             }
-            function returnCurrDayTT(){
-                var day = dic[n];
+            function returnCurrDayTT(t){
+                var day;
+                if (t){
+                    day = dic[t];
+                } else{
+                    day = dic[n]
+                }
+                console.log(day);
+                // var day = dic[n+1];
+                document.getElementById("currDay").innerHTML = day+"'s Free Space";
                 accessByDOM(day+".html","storage");
+                try{
+                    setTimeout(function(){
+                    merge();
+                    },100);
+                }catch(err){
+                    setTimeout(function(){
+                    merge();
+                },150);
+                }
+                finally{}                
             }
         </script>
     </head>
     <body onload="allFunctionRun()">
         <h1>Free Zone</h1>
+            <div id = "currDay"></div>
             <div id="storage"></div>
+            <br>
+            <button onclick="returnCurrDayTT(1)">Monday</button>
+            <button onclick="returnCurrDayTT(2)">Tuesday</button>
+            <button onclick="returnCurrDayTT(3)">Wednesday</button>
+            <button onclick="returnCurrDayTT(4)">Thursday</button>
+            <button onclick="returnCurrDayTT(5)">Friday</button>
+            <!-- <a href="Monday.html">Monday</a>
+            <a href="Tuesday.html">Tuesday</a>
+            <a href="Wednesday.html">Wednesday</a>
+            <a href="Thursday.html">Thursday</a>
+            <a href="Friday.html">Friday</a> -->
             <div id="allRooms"></div>
+        <script>
+        </script>
     </body>
 </html>
