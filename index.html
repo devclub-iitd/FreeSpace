@@ -17,9 +17,15 @@
                 if (t){
                     day = dic[t];
                 } else{
-                    day = dic[n]
+                    if (n == 0){
+                        day = dic[n+1];
+                    } else if(n == 6){
+                        day = dic[n-1];                        
+                    }else{
+                        day = dic[n];
+                    }
                 }
-                console.log(day);
+                // console.log(day);
                 // var day = dic[n+1];
                 document.getElementById("currDay").innerHTML = day+"'s Free Space";
                 accessByDOM(day+".html","storage");
