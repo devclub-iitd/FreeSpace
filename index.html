@@ -32,26 +32,36 @@
                 try{
                     setTimeout(function(){
                     merge();
+                    allRoomMerge();
                     },100);
                 }catch(err){
                     setTimeout(function(){
+                    allRoomMerge();
                     merge();
                 },150);
                 }
                 finally{}                
             }
         </script>
+        <link rel="stylesheet" href="style.css">
     </head>
     <body onload="allFunctionRun()">
-        <h1>Free Zone</h1>
+        <header class ="Header">
+            <h1>Free Zone</h1>
             <div id = "currDay"></div>
+        </header> 
             <div id="storage"></div>
             <br>
-            <button onclick="returnCurrDayTT(1)">Monday</button>
-            <button onclick="returnCurrDayTT(2)">Tuesday</button>
-            <button onclick="returnCurrDayTT(3)">Wednesday</button>
-            <button onclick="returnCurrDayTT(4)">Thursday</button>
-            <button onclick="returnCurrDayTT(5)">Friday</button>
+            <div id = "buttons">
+                <button class = "button button5" onclick="returnCurrDayTT(1)">Monday</button>
+                <button class = "button button5" onclick="returnCurrDayTT(2)">Tuesday</button>
+                <button class = "button button5" onclick="returnCurrDayTT(3)">Wednesday</button>
+                <button class = "button button5" onclick="returnCurrDayTT(4)">Thursday</button>
+                <button class = "button button5" onclick="returnCurrDayTT(5)">Friday</button>
+            </div>
+            <div class = "heading">
+                <h3>All Rooms</h3>
+            </div>
             <!-- <a href="Monday.html">Monday</a>
             <a href="Tuesday.html">Tuesday</a>
             <a href="Wednesday.html">Wednesday</a>

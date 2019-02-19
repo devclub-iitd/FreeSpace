@@ -1,0 +1,75 @@
+body{
+    background-color: white;
+}
+table{
+    background-color: white;
+    border: none;
+    padding: 20px;
+    border-spacing: 0;
+    border-collapse: collapse;
+
+}
+th{
+    background-color: white;
+    color: black;
+    text-align: center;
+    height: 1cm
+}
+
+
+/* tr:nth-child(even){
+    background-color: #f2f2f2;
+} */
+td{
+    text-align: center;
+    height: 1cm;
+}
+#buttons{
+    text-align: center;
+} 
+/* #currDay{
+    text-align: center;
+    font-size: 1cm;
+} */
+/* .Header{
+    background: black;
+    color: white;
+} */
+.Header {
+    padding: 60px;
+    text-align: center;
+    background: #1abc9c;
+    /* background: #131817; */
+    color: white;
+    font-size: 20px;
+  }
+  .button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+  }
+  
+  .button5 {
+    background-color: white;
+    color: #1abc9c;
+    border: 2px solid #1abc9c;
+  }
+  
+  .button5:hover {
+    background-color: #1abc9c;
+    color: white;
+  }
+  .heading{
+      text-align: center;
+      font-size: 0.5cm
+  }
+ 

@@ -2,7 +2,7 @@ from tabula import read_pdf
 import pandas as pd
 # from collections import OrderedDict
 
-room_occupancy =  read_pdf("Room_Occupancy_Chart.pdf",guess=False,pages='1-5') #dataframe created
+room_occupancy =  read_pdf("Room_Occupancy_Chart.pdf", guess= False, pages='1-5') #dataframe created
 filter1 = room_occupancy.loc[(room_occupancy["Room"] != "Room") & (room_occupancy["Room"].str.contains("LH"))] #All required data got
 rooms =  filter1["Room"].tolist() 
 
@@ -75,7 +75,7 @@ for index,row in filter1.iterrows():
     curr_room = row[0]
     for j in range(1,12):
         if (type(row[j])!= float): #notNaN
-            slot(j,fd,curr_room,slot_map)
+            slot(j, fd, curr_room, slot_map)
         else: #Add this curr room to a table with time as row and days as columns
             got_slot = slot_map[j] #nested list of days,timings. This slot is empty for the room
             days_for_this_slot_1 = got_slot[0]
@@ -117,7 +117,7 @@ for i in range(5):
             l.append(bool_value)
         day_dict[curr_room] = l
     #day dict is now a dictionary of type room:list
-    temp_df = pd.DataFrame.from_dict(day_dict,orient = 'index',columns = intvlist)
+    temp_df = pd.DataFrame.from_dict(day_dict,orient = 'index',columns = intvllist2)
     temp_df.to_html(key+".html")
     # temp_df.to_json(key+".json")
     final_dict[key] = temp_df

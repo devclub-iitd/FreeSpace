@@ -57,6 +57,9 @@ function merge(){
             finally{
                 if (row.cells[j].innerHTML == '0'){
                     row.cells[j].innerHTML = "Free Space(Not Counting Tuorials...)"
+                } else{
+                    row.cells[j].innerHTML = "Class Going On...";
+                    row.cells[j].style.background="lightgray";
                 }
                 j++;
             }
