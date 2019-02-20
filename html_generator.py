@@ -2,9 +2,10 @@ from tabula import read_pdf
 import pandas as pd
 # from collections import OrderedDict
 
-room_occupancy =  read_pdf("Room_Occupancy_Chart.pdf", guess= False, pages='1-5') #dataframe created
-filter1 = room_occupancy.loc[(room_occupancy["Room"] != "Room") & (room_occupancy["Room"].str.contains("LH"))] #All required data got
-rooms =  filter1["Room"].tolist() 
+#room_occupancy =  read_pdf("Room_Occupancy_Chart.pdf", guess= False, pages='1-5') #dataframe created
+room_occupancy =  read_pdf("http://roombooking.iitd.ac.in/allot/files/Room_Occupancy_Chart.pdf", guess=False, pages='1-5') #dataframe created
+filter1 =room_occupancy.loc[(room_occupancy["Room"] != "Room") & (room_occupancy["Room"].str.contains("LH"))] #All required data got
+rooms =filter1["Room"].tolist()
 
 '''
 A Slot: Mon and Thurs -> 8:00  to 9:30
@@ -29,10 +30,6 @@ intvlist = [8 + x*(19.5 - 8)/23 for x in range(23)] #columns
 intvllist2 = []
 for i in intvlist:
     intvllist2.append(dec_to_time(i))
-    # if i%1 == 0.5:
-    #     intvllist2.append(str(int(i//1))+ ":30")
-    # else:
-    #     intvllist2.append(str(int(i//1))+ ":00")
 
 fd={}
 for i in range(0,5): #each day
@@ -46,25 +43,21 @@ for i in range(0,5): #each day
 
 slot_map = {1:[[0,3],[8.0,8.5,9.0]],2:[[0,3],[9.5,10.0,10.5]],3:[[1,2,4],[8.0,8.5]],4:[[1,2,4],[9.0,9.5]],5:[[1,2,4],[10.0,10.5]],6:[[1,3,4],[11.0,11.5]],7:[[0,2],[11.0,11.5],[3],[12.0,12.5]],8:[[0,1,4],[12.0,12.5]],9:[[1,4],[17.0,17.5],[2],[12.0,12.5]],10:[[1,4],[18.0,18.5]],11:[[0,3],[17.0,17.5,18.0]]}
 
-# def slotA(dic,room):
-#     for i in [0,3]: #days
-#         for j in [8,8.5,9]: 
-#             dic[i][room][j] = 1
 daywise_dict = {0:"Monday",1:"Tuesday",2:"Wednesday",3:"Thursday",4:"Friday"}
 
-def slot(cs,room_dic,room,slot_dic):
+def slot(cs,room_dic,room,slot_dic,class_going_on):
     slot_timings = slot_dic[cs]
     slot_days = slot_timings[0]
     slot_times = slot_timings[1]
     for i in slot_days:
         for j in slot_times:
-            room_dic[i][room][float(j)] = 1
+            room_dic[i][room][float(j)] = class_going_on
     if len(slot_timings)>2:
         slot_days = slot_timings[2]
         slot_times = slot_timings[3]
         for i in slot_days:
             for j in slot_times:
-                room_dic[i][room][float(j)] = 1
+                room_dic[i][room][float(j)] = class_going_on
 
 dict_2= {} #rows are timings and columns are days so each key will be timings & value will be a list
 #with each index corresponding to the day and the data inside will be string
@@ -75,7 +68,7 @@ for index,row in filter1.iterrows():
     curr_room = row[0]
     for j in range(1,12):
         if (type(row[j])!= float): #notNaN
-            slot(j, fd, curr_room, slot_map)
+            slot(j, fd, curr_room, slot_map, row[j])
         else: #Add this curr room to a table with time as row and days as columns
             got_slot = slot_map[j] #nested list of days,timings. This slot is empty for the room
             days_for_this_slot_1 = got_slot[0]

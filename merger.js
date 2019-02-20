@@ -58,7 +58,7 @@ function merge(){
                 if (row.cells[j].innerHTML == '0'){
                     row.cells[j].innerHTML = "Free Space(Not Counting Tuorials...)"
                 } else{
-                    row.cells[j].innerHTML = "Class Going On...";
+                    // row.cells[j].innerHTML = "Class Going On...";
                     row.cells[j].style.background="lightgray";
                 }
                 j++;
@@ -74,6 +74,12 @@ function allRoomMerge(){
     end_col_index = tableBody.rows[0].cells.length;
     for (var i = 0,row;row = tableBody.rows[i];i++){
         var curr_row_head = row.cells[0].innerHTML;
+        for (var j = 1,col; col = row.cells[j]; j++){
+            if (col.innerHTML == ""){
+                col.innerHTML = "All LHs Free";
+                col.style.fontWeight = "bold";
+            }
+        }
         if (curr_row_head == "13:00"){
             start_cell = row.cells[1];
             start_cell_row_index = i;;
@@ -88,8 +94,14 @@ function allRoomMerge(){
         }
         row.cells[1].setAttribute("colSpan",end_col_index-1);
         row.cells[1].innerHTML="All LHs are free(Not Counting Tutorials)."
+        console.log(i);
+        if (i != start_cell_row_index){
+            row.deleteCell(1);
+        }else{
+            row.cells[1].setAttribute("rowSpan",(end_row_index-start_cell_row_index+ 1));
+            row.cells[1].innerHTML="All LHs are Free(Not Counting Tutorials...)";
+            row.cells[1].style.fontWeight = "bold";
+
+        }
     }
 };
-// function delAndMerge(start_cell){
-
-// }
