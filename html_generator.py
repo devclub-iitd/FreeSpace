@@ -1,7 +1,7 @@
 from tabula import read_pdf
 import pandas as pd
 # from collections import OrderedDict
-
+output_folder = "dayWiseTables/"
 #room_occupancy =  read_pdf("Room_Occupancy_Chart.pdf", guess= False, pages='1-5') #dataframe created
 room_occupancy =  read_pdf("http://roombooking.iitd.ac.in/allot/files/Room_Occupancy_Chart.pdf", guess=False, pages='1-5') #dataframe created
 filter1 =room_occupancy.loc[(room_occupancy["Room"] != "Room") & (room_occupancy["Room"].str.contains("LH"))] #All required data got
@@ -111,7 +111,7 @@ for i in range(5):
         day_dict[curr_room] = l
     #day dict is now a dictionary of type room:list
     temp_df = pd.DataFrame.from_dict(day_dict,orient = 'index',columns = intvllist2)
-    temp_df.to_html(key+".html")
+    temp_df.to_html(output_folder +key+".html")
     # temp_df.to_json(key+".json")
     final_dict[key] = temp_df
 
