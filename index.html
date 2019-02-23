@@ -7,10 +7,33 @@
         <script>
             var d = new Date();
             var n = d.getDay();
+            var h = d.getHours();
             var dic = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday"];
+
+            function latestSmallTable(){
+                if (h < 7){
+                    h = 7;
+                } else if(h > 17){
+                    h  = 17;
+                };
+                var day;
+                if (n == 0){    //Sunday
+                    day = dic[n+1];
+                } else if(n == 6){  //Saturday
+                    day = dic[n-1];                        
+                }else{
+                    day = dic[n];
+                }
+                accessByDOM("smallTables/"+day+"/"+(h+1)+":00.html","smallOnes");
+                accessByDOM("smallTables/"+day+"/"+(h+1)+":30.html","smallOnesAfterHalf");
+                document.getElementById("heading1").innerText = 'Empty Classrooms from '+(h+1)+":00";
+                document.getElementById("heading2").innerText = 'Empty Classrooms from '+(h+1)+":30";
+
+            }
             function allFunctionRun(){
                 returnCurrDayTT()
                 accessByDOM("timewise.html","allRooms");
+                latestSmallTable();
             }
             function returnCurrDayTT(t){
                 var day;
@@ -31,11 +54,16 @@
                     setTimeout(function(){
                     merge();
                     allRoomMerge();
+                    smallTableEdit("smallOnes");
+                    smallTableEdit("smallOnesAfterHalf");
+
                     },100);
                 }catch(err){
                     setTimeout(function(){
                     allRoomMerge();
                     merge();
+                    smallTableEdit("smallOnes");
+                    smallTableEdit("smallOnesAfterHalf");
                 },150);
                 }
                 finally{}                
@@ -48,6 +76,16 @@
             <h1>Free Space</h1>
             <div id = "currDay"></div>
         </header> 
+            <div id = "hourly_change">
+                <div id="heading1"></div>
+                <div id = "smallOnes">
+                </div>
+                <div id="heading2"></div>
+                <div id = "smallOnesAfterHalf">
+                </div>
+                
+            </div>
+            
             <div id="storage"></div>
             <br>
             <div id = "buttons">

@@ -26,7 +26,6 @@ function merge(){
         var j = 1;
         var last_ind = row.cells.length;
         while (col = row.cells[j]){
-            //console.log(j);
             var col2
             var ct = 0;
             try{
@@ -41,13 +40,6 @@ function merge(){
                 ct--;
             while (ct != 0){
                 row.deleteCell(j);
-                // console.log(ct);
-                // if (col.getAttribute("colSpan") == null){
-                //     col.setAttribute("colSpan",1)
-                // };
-                // var curr_colspan = col.getAttribute("colspan");
-                // row.deleteCell(j+1);
-                // col.setAttribute("colspan",curr_colspan+1);
                 ct--;
             }
             try{
@@ -94,7 +86,6 @@ function allRoomMerge(){
         }
         row.cells[1].setAttribute("colSpan",end_col_index-1);
         row.cells[1].innerHTML="All LHs are free(Not Counting Tutorials)."
-        console.log(i);
         if (i != start_cell_row_index){
             row.deleteCell(1);
         }else{
@@ -105,3 +96,13 @@ function allRoomMerge(){
         }
     }
 };
+
+function smallTableEdit(id){
+    var tableF = preProcessTable(id);
+    var table_body = tableF[1];
+    var table_head = tableF[0];
+    table_head.rows[0].deleteCell(0);
+    for (var i = 0,row;row = table_body.rows[i];i++){
+        row.deleteCell(0);
+    }
+}

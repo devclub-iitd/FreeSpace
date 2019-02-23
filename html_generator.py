@@ -2,10 +2,11 @@ from tabula import read_pdf
 import pandas as pd
 # from collections import OrderedDict
 output_folder = "dayWiseTables/"
-#room_occupancy =  read_pdf("Room_Occupancy_Chart.pdf", guess= False, pages='1-5') #dataframe created
-room_occupancy =  read_pdf("http://roombooking.iitd.ac.in/allot/files/Room_Occupancy_Chart.pdf", guess=False, pages='1-5') #dataframe created
+small_tables = "smallTables/"
+room_occupancy =  read_pdf("Room_Occupancy_Chart.pdf", guess= False, pages='1-5') #dataframe created
+#room_occupancy =  read_pdf("http://roombooking.iitd.ac.in/allot/files/Room_Occupancy_Chart.pdf", guess=False, pages='1-5') #dataframe created
 filter1 =room_occupancy.loc[(room_occupancy["Room"] != "Room") & (room_occupancy["Room"].str.contains("LH"))] #All required data got
-rooms =filter1["Room"].tolist()
+rooms = filter1["Room"].tolist()
 
 '''
 A Slot: Mon and Thurs -> 8:00  to 9:30
@@ -22,16 +23,17 @@ M Slot: Mon, Thurs -> 5:00 to 6:30
 '''
 def dec_to_time(i):
     if i%1 == 0.5:
-        return(str(int(i//1))+ ":30")
+        return str(int(i//1))+ ":30"
     else:
-        return(str(int(i//1))+ ":00")
+        return str(int(i//1))+ ":00"
 
 intvlist = [8 + x*(19.5 - 8)/23 for x in range(23)] #columns
 intvllist2 = []
 for i in intvlist:
     intvllist2.append(dec_to_time(i))
 
-fd={}
+fd = {}
+smaller_tables = {} #A dictionary of the form {day:{time:Rooms},...}
 for i in range(0,5): #each day
     d ={}
     for k in range(len(rooms)):
@@ -77,15 +79,34 @@ for index,row in filter1.iterrows():
                 for j in timings_for_this_slot_1:
                     # if j in dict_2: #list already initialized with epthy strings
                     dict_2[dec_to_time(j)][i] += curr_room+","
-                    # else:
-                    #     dict_2[j] = ["","","","",""]
             if len(got_slot) > 2:
                 days_for_this_slot_2 = got_slot[2]
                 timings_for_this_slot_2 = got_slot[3]
                 for i in days_for_this_slot_1:
                     for j in timings_for_this_slot_1:
                         dict_2[ dec_to_time(j)][i] += curr_room+","
+def list_to_string(l):
+    string = ""
+    # ct=1
+    for i in l:
+        string+= str(i)
+        # ct+=1
+        # if ct%6==0:
+        #     string+='\n'
+    return string
 
+for times in intvllist2:
+    for days in range(5):
+        curr_day = daywise_dict[days] + "/"
+        # element = [list_to_string(dict_2[times][days])]
+        element = dict_2[times][days].split(',')
+        element = [x for x in element if x != '']
+        dic_wrapper = {times:element}
+        df = pd.DataFrame.from_dict(dic_wrapper,orient='columns')
+        old_width = pd.get_option('display.max_colwidth')
+        pd.set_option('display.max_colwidth', -1)
+        df.to_html(small_tables+curr_day+times+".html")
+        pd.set_option('display.max_colwidth', old_width)
 
 timewise_df = pd.DataFrame.from_dict(dict_2,orient='index',columns=["Monday","Tuesday","Wednesday","Thursday","Friday"])
 old_width = pd.get_option('display.max_colwidth')
@@ -101,7 +122,7 @@ for i in range(5):
     day_dict ={} #room : list of bools in time series
     key = daywise_dict[i]
     room_list = fd[i]
-    
+    small_dicts = {} #Day and time tables
     for curr_room in rooms:
         l = []
         timings = room_list[curr_room] #will return a dictionary
