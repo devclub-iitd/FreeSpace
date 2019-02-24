@@ -98,6 +98,7 @@ function allRoomMerge(){
 };
 
 function smallTableEdit(id){
+    var table_list = document.getElementsByClassName("dataframe");
     var tableF = preProcessTable(id);
     var table_body = tableF[1];
     var table_head = tableF[0];
@@ -105,4 +106,15 @@ function smallTableEdit(id){
     for (var i = 0,row;row = table_body.rows[i];i++){
         row.deleteCell(0);
     }
+    if (table_body.rows.length == 0) {
+        var addedRow = table_body.insertRow(0);
+        var newCell = document.createElement('td');
+        newCell = addedRow.insertCell(0);
+        newCell.innerText = "All LHs are free."
+    }
+    for (var i = 0;i<2;i++){
+        var currTable = table_list[i];
+        currTable.setAttribute("class","smallTables");
+    }
+
 }

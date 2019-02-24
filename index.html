@@ -77,15 +77,27 @@
             <div id = "currDay"></div>
         </header> 
             <div id = "hourly_change">
-                <div id="heading1"></div>
-                <div id = "smallOnes">
-                </div>
-                <div id="heading2"></div>
-                <div id = "smallOnesAfterHalf">
-                </div>
+                <table class="halfHourWrapper">
+                    <tr>
+                            <th class = "small">
+                                <div id="heading1"></div>
+                            </th>
                 
+                            <th class = "small">
+                                <div id="heading2"></div>
+                            </th>
+                    </tr>
+                    <tr class = "halfHourData">
+                        <td>
+                            <div id = "smallOnes"></div>
+                        </td>
+                        <td>
+                            <div id = "smallOnesAfterHalf"></div>
+                        </td>
+                    </tr>
+                </table>
             </div>
-            
+            <br>
             <div id="storage"></div>
             <br>
             <div id = "buttons">
