@@ -32,10 +32,10 @@
             }
             function allFunctionRun(){
                 returnCurrDayTT()
-                accessByDOM("timewise.html","allRooms");
+                // accessByDOM("timewise.html","allRooms");
                 latestSmallTable();
             }
-            function returnCurrDayTT(t){
+            async function returnCurrDayTT(t){
                 var day;
                 if (t){
                     day = dic[t];
@@ -49,24 +49,43 @@
                     }
                 }
                 document.getElementById("currDay").innerHTML = day+"'s Free Space";
-                accessByDOM("dayWiseTables/"+day+".html","storage");
-                try{
-                    setTimeout(function(){
+                await accessByDOM("dayWiseTables/"+day+".html","storage");
+                if (t){
                     merge();
-                    // allRoomMerge();
-                    smallTableEdit("smallOnes");
-                    smallTableEdit("smallOnesAfterHalf");
-
-                    },100);
-                }catch(err){
-                    setTimeout(function(){
-                    // allRoomMerge();
+                } else{
                     merge();
                     smallTableEdit("smallOnes");
                     smallTableEdit("smallOnesAfterHalf");
-                },200);
                 }
-                finally{}                
+                
+                // try{
+                //     setTimeout(function(){
+                //     if (t){
+                //         merge();
+                //         // allRoomMerge();
+                        
+                //     } else{
+                //         merge();
+                //         smallTableEdit("smallOnes");
+                //         smallTableEdit("smallOnesAfterHalf");
+                //     }
+                    
+                //     },50);
+                // }catch(err){
+                //     setTimeout(function(){
+                //     // allRoomMerge();
+                //     if (t){
+                //         merge();
+                //         // allRoomMerge();
+                        
+                //     } else{
+                //         merge();
+                //         smallTableEdit("smallOnes");
+                //         smallTableEdit("smallOnesAfterHalf");
+                //     }
+                // },100);
+                // }
+                // finally{}                
             }
         </script>
         <link rel="stylesheet" href="style.css">

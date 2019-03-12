@@ -6,11 +6,11 @@ function loadHTML(url,storage){
             storage.innerHTML =ans.trim();
         } 
     }; 
-    xhr.open("GET", url , true);
+    xhr.open("GET", url , false);
     xhr.send(null); 
 } 
 
-function accessByDOM(url,id){
+async function accessByDOM(url,id){
     var responseHTML = document.getElementById(id);
     loadHTML(url, responseHTML);
 }
