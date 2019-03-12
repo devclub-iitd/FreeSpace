@@ -3,8 +3,8 @@ import pandas as pd
 # from collections import OrderedDict
 output_folder = "dayWiseTables/"
 small_tables = "smallTables/"
-room_occupancy =  read_pdf("Room_Occupancy_Chart.pdf", guess= False, pages='1-5') #dataframe created
-#room_occupancy =  read_pdf("http://roombooking.iitd.ac.in/allot/files/Room_Occupancy_Chart.pdf", guess=False, pages='1-5') #dataframe created
+#room_occupancy =  read_pdf("Room_Occupancy_Chart.pdf", guess= False, pages='1-5') #dataframe created
+room_occupancy =  read_pdf("http://roombooking.iitd.ac.in/allot/files/Room_Occupancy_Chart.pdf", guess=False, pages='1-5') #dataframe created
 filter1 =room_occupancy.loc[(room_occupancy["Room"] != "Room") & (room_occupancy["Room"].str.contains("LH"))] #All required data got
 rooms = filter1["Room"].tolist()
 

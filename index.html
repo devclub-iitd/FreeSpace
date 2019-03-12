@@ -1,6 +1,6 @@
 <!DOCTYPE html>
     <head>
-        <title>Free Zone</title>
+        <title>Free Space</title>
         <script src ="jquery-3.3.1.js"></script>
         <script src = "merger.js"></script>
         <script src ="scraper.js"></script>
@@ -53,14 +53,14 @@
                 try{
                     setTimeout(function(){
                     merge();
-                    allRoomMerge();
+                    // allRoomMerge();
                     smallTableEdit("smallOnes");
                     smallTableEdit("smallOnesAfterHalf");
 
                     },100);
                 }catch(err){
                     setTimeout(function(){
-                    allRoomMerge();
+                    // allRoomMerge();
                     merge();
                     smallTableEdit("smallOnes");
                     smallTableEdit("smallOnesAfterHalf");
@@ -98,6 +98,7 @@
                 </table>
             </div>
             <br>
+            
             <div id="storage"></div>
             <br>
             <div id = "buttons">
@@ -107,10 +108,10 @@
                 <button class = "button button5" onclick="returnCurrDayTT(4)">Thursday</button>
                 <button class = "button button5" onclick="returnCurrDayTT(5)">Friday</button>
             </div>
-            <div class = "heading">
+            <!-- <div class = "heading">
                 <h3>All Rooms</h3>
-            </div>
-            <div id="allRooms"></div>
+            </div> -->
+            <!-- <div id="allRooms"></div> -->
         <script>
         </script>
     </body>
