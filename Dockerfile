@@ -23,6 +23,7 @@ RUN pip install -r requirements.txt
 
 COPY . /Free-Space/
 
+RUN ./folderCreate.sh
 RUN python html_generator.py
 
 EXPOSE 8080
