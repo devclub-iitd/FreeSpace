@@ -7,7 +7,6 @@ function preProcessTable(id){
 			tableHead = l[a];
         }
     };
-    
     var tableChild = tableHead.childNodes;
     var finalTable = [];
     for (var a = 0 ; a< tableChild.length; a++){
@@ -47,9 +46,14 @@ function merge(){
                 
             }
             finally{
-                if (row.cells[j].innerHTML == '0'){
+                if (row.cells[j].innerHTML == 'Free'){
                     row.cells[j].innerHTML = "Free Space"
-                } else{
+                } else if(row.cells[j].innerHTML == 'Not Allowed'){
+                    row.cells[j].style.background="red";
+                } else if (row.cells[j].innerHTML == 'Exam'){
+                    row.cells[j].style.background="yellow";
+                }
+                else{
                     // row.cells[j].innerHTML = "Class Going On...";
                     row.cells[j].style.background="lightgray";
                 }

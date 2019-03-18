@@ -8,84 +8,31 @@
             var d = new Date();
             var n = d.getDay();
             var h = d.getHours();
+            var currDate = d.getDate();
+            // var fileSearch = ;
             var dic = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday"];
-
+            var reg = /.*\((.*)\).html/;
+            var array = reg.exec()
             function latestSmallTable(){
-                if (h < 7){
-                    h = 7;
-                } else if(h > 17){
-                    h  = 17;
-                };
-                var day;
-                if (n == 0){    //Sunday
-                    day = dic[n+1];
-                } else if(n == 6){  //Saturday
-                    day = dic[n-1];                        
-                }else{
-                    day = dic[n];
-                }
                 accessByDOM("smallTables/"+day+"/"+(h+1)+":00.html","smallOnes");
                 accessByDOM("smallTables/"+day+"/"+(h+1)+":30.html","smallOnesAfterHalf");
                 document.getElementById("heading1").innerText = 'Empty Classrooms from '+(h+1)+":00";
                 document.getElementById("heading2").innerText = 'Empty Classrooms from '+(h+1)+":30";
-
             }
             function allFunctionRun(){
                 returnCurrDayTT()
-                // accessByDOM("timewise.html","allRooms");
                 latestSmallTable();
             }
             async function returnCurrDayTT(t){
-                var day;
-                if (t){
-                    day = dic[t];
-                } else{
-                    if (n == 0){    //Sunday
-                        day = dic[n+1];
-                    } else if(n == 6){  //Saturday
-                        day = dic[n-1];                        
-                    }else{
-                        day = dic[n];
-                    }
-                }
                 document.getElementById("currDay").innerHTML = day+"'s Free Space";
-                await accessByDOM("dayWiseTables/"+day+".html","storage");
+                await accessByDOM("dayWiseTables/"+"2019-03-19(Tuesday).html","storage");
                 if (t){
                     merge();
                 } else{
                     merge();
                     smallTableEdit("smallOnes");
                     smallTableEdit("smallOnesAfterHalf");
-                }
-                
-                // try{
-                //     setTimeout(function(){
-                //     if (t){
-                //         merge();
-                //         // allRoomMerge();
-                        
-                //     } else{
-                //         merge();
-                //         smallTableEdit("smallOnes");
-                //         smallTableEdit("smallOnesAfterHalf");
-                //     }
-                    
-                //     },50);
-                // }catch(err){
-                //     setTimeout(function(){
-                //     // allRoomMerge();
-                //     if (t){
-                //         merge();
-                //         // allRoomMerge();
-                        
-                //     } else{
-                //         merge();
-                //         smallTableEdit("smallOnes");
-                //         smallTableEdit("smallOnesAfterHalf");
-                //     }
-                // },100);
-                // }
-                // finally{}                
+                }                
             }
         </script>
         <link rel="stylesheet" href="style.css">
