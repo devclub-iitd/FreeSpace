@@ -1,1 +1,5 @@
 /.vscode
+/dayWiseTables
+/smallTables
+/.ipynb_checkpoints
+*.ipynb
