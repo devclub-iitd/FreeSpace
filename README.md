@@ -23,11 +23,13 @@ $ pip install -r requirements.txt</pre>
  
  You are good to go.
 ## Running the app
- For generating the tables which get shown on the site, run
- <pre>$ ./folderCreate.sh
-$ python3 html_generator.py</pre>
+The app requires the user to manually login to the roombooking <a href="">site</a>. Once logged in, get the cookie with name <b>PHPSESSID</b> and pass it as an argument to the python script along with how the number of weeks you want to scrape the data for. not specifying the argument, takes the default value of <b>2</b>.
+
+For generating the tables which get shown on the site, run
+<pre>$ python tableGen.py [COOKIE_ID] [WEEKS_TO_SCRAPE]</pre>
  
  Then view the site by running
- <pre>$ python3 -m http.server 8080
-$ sensible-browser http://localhost:8080</pre>
+ <pre>$ python3 -m http.server 8080& sensible-browser http://localhost:8080</pre>
  
+## NOTE
+The room booking site only shows the tables from the day after, so for debugging purposes, it is recommended to move forward your system's date by 1.
