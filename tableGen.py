@@ -12,7 +12,11 @@ import datetime
 import pandas as pd
 import os
 import shutil
-NO_OF_WEEKS_TO_SCRAPE=1
+import sys
+NO_OF_WEEKS_TO_SCRAPE=2
+
+if (len(sys.argv) == 3):
+    NO_OF_WEEKS_TO_SCRAPE=int(sys.argv[2])
 
 
 # In[101]:
@@ -25,7 +29,7 @@ room_df_dict = {}
 
 
 cookie={
-    "PHPSESSID":"sv8vsjuk8ocbvkbsdmunvmsil4"
+    "PHPSESSID":sys.argv[1]
 }
 url="http://roombooking.iitd.ac.in/book/" #add br(i) to this
 
@@ -107,11 +111,10 @@ def data_cleaner(needed_table):
 with requests.Session() as s:
     for i in date_list: #Take a date
         for j in uniq_room_list: #Take a room
-#             j = uniq_room_list[0]
             data['room_no']=j
             data['date']=i
             r = requests.post(url=(url+br1),cookies=cookie,headers=req_header,data=data)
-            soup = BeautifulSoup(r.content)
+            soup = BeautifulSoup(r.content, features="lxml")
             
             all_tables = soup.find_all('table')
             actual_table = all_tables[1]
@@ -139,8 +142,6 @@ def getRoomList(room_df_dict):
     l = [x.lstrip("LH") for x in l]
     l.sort()
     l = ["LH"+x for x in l]
-#     for room in l:
-#         stripped=room.lstrip("LH")
         
     return l
 
