@@ -1,6 +1,6 @@
 /.vscode
-/dayWiseTables
-/smallTables
+# /dayWiseTables
+# /smallTables
 /.ipynb_checkpoints
 *.ipynb
 .gitsecret/keys/random_seed
