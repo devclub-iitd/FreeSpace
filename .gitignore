@@ -3,3 +3,5 @@
 /smallTables
 /.ipynb_checkpoints
 *.ipynb
+.gitsecret/keys/random_seed
+.env
