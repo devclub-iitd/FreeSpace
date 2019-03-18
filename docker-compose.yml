@@ -4,7 +4,7 @@ services:
     build:
       context: .
       args:
-        COOKIE_ID:${COOKIE_ID}
+        COOKIE_ID: ${COOKIE_ID}
     ports: 
       - 8080:8080
     image: "${REGISTRY_NAME}devclubiitd/freespace:0.1"
