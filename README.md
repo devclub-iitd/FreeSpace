@@ -24,9 +24,10 @@ $ pip install -r requirements.txt</pre>
  You are good to go.
 ## Running the app
  For generating the tables which get shown on the site, run
- <pre>python3 html_generator.py</pre>
+ <pre>$ ./folderCreate.sh
+$ python3 html_generator.py</pre>
  
  Then view the site by running
- <pre> python3 -m http.server 8080
- sensible-browser http://localhost:8080</pre>
+ <pre>$ python3 -m http.server 8080
+$ sensible-browser http://localhost:8080</pre>
  
