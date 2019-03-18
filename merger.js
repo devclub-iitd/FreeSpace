@@ -64,43 +64,6 @@ function merge(){
         }
     }
 }
-function allRoomMerge(){
-    finalTable = preProcessTable("allRooms");
-    tableBody = finalTable[1];
-    var start_cell,start_cell_row_index,end_row_index,end_col_index;
-    end_col_index = tableBody.rows[0].cells.length;
-    for (var i = 0,row;row = tableBody.rows[i];i++){
-        var curr_row_head = row.cells[0].innerHTML;
-        for (var j = 1,col; col = row.cells[j]; j++){
-            if (col.innerHTML == ""){
-                col.innerHTML = "All LHs Free";
-                col.style.fontWeight = "bold";
-            }
-        }
-        if (curr_row_head == "13:00"){
-            start_cell = row.cells[1];
-            start_cell_row_index = i;;
-        }
-        if (curr_row_head == "16:30"){
-            end_row_index = i;
-        }
-    }
-    for (var i = start_cell_row_index,row;row = tableBody.rows[i],i<=end_row_index;i++){
-        for (var j = 1;j<end_col_index-1;j++){
-            row.deleteCell(1);
-        }
-        row.cells[1].setAttribute("colSpan",end_col_index-1);
-        row.cells[1].innerHTML="All LHs are free(Not Counting Tutorials)."
-        if (i != start_cell_row_index){
-            row.deleteCell(1);
-        }else{
-            row.cells[1].setAttribute("rowSpan",(end_row_index-start_cell_row_index+ 1));
-            row.cells[1].innerHTML="All LHs are Free(Not Counting Tutorials...)";
-            row.cells[1].style.fontWeight = "bold";
-
-        }
-    }
-};
 
 function smallTableEdit(id){
     var table_list = document.getElementsByClassName("dataframe");
