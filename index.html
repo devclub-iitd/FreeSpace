@@ -38,9 +38,10 @@
                     futureDate.setDate(futureDate.getDate()+dayDiff);
                     day=(futureDate.getDate()).toString()+stringDay;
                 }else{
-                    day=currDate.toString()+dic[n];
+                    var stringDay = dic[n]
+                    day=currDate.toString()+ stringDay;
                 }
-                document.getElementById("currDay").innerHTML = day+"'s Free Space";
+                document.getElementById("currDay").innerHTML = stringDay+"'s Free Space";
                 await accessByDOM("dayWiseTables/"+day+".html","storage");
                 if (t){
                     merge();

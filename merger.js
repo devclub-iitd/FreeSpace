@@ -49,7 +49,8 @@ function merge(){
                 if (row.cells[j].innerHTML == 'Free'){
                     row.cells[j].innerHTML = "Free Space"
                 } else if(row.cells[j].innerHTML == 'Not Allowed'){
-                    row.cells[j].style.background="red";
+                    // row.cells[j].style.background="red";
+                    row.cells[j].innerHTML = "Free Space";
                 } else if (row.cells[j].innerHTML == 'Exam'){
                     row.cells[j].style.background="yellow";
                 }
@@ -106,6 +107,7 @@ function smallTableEdit(id){
     var tableF = preProcessTable(id);
     var table_body = tableF[1];
     var table_head = tableF[0];
+    table_head.rows[0].deleteCell(0);
     table_head.rows[0].deleteCell(0);
     for (var i = 0,row;row = table_body.rows[i];i++){
         row.deleteCell(0);
