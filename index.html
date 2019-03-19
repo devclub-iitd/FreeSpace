@@ -9,11 +9,15 @@
             var n = d.getDay();
             var h = d.getHours();
             var currDate = d.getDate();
-            // var fileSearch = ;
-            var dic = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday"];
-            var reg = /.*\((.*)\).html/;
-            var array = reg.exec()
+            var dic = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday"]
+            var day;
             function latestSmallTable(){
+                day = currDate.toString()+dic[n];
+                if (h>18){
+                    h=18;
+                }else if(h<7){
+                    h=7;
+                }
                 accessByDOM("smallTables/"+day+"/"+(h+1)+":00.html","smallOnes");
                 accessByDOM("smallTables/"+day+"/"+(h+1)+":30.html","smallOnesAfterHalf");
                 document.getElementById("heading1").innerText = 'Empty Classrooms from '+(h+1)+":00";
@@ -24,8 +28,20 @@
                 latestSmallTable();
             }
             async function returnCurrDayTT(t){
+                if (t){
+                    var dayDiff = t - n;
+                    if (dayDiff<0){
+                        dayDiff+=7;
+                    }
+                    var stringDay = dic[t];
+                    var futureDate=new Date();
+                    futureDate.setDate(futureDate.getDate()+dayDiff);
+                    day=(futureDate.getDate()).toString()+stringDay;
+                }else{
+                    day=currDate.toString()+dic[n];
+                }
                 document.getElementById("currDay").innerHTML = day+"'s Free Space";
-                await accessByDOM("dayWiseTables/"+"2019-03-19(Tuesday).html","storage");
+                await accessByDOM("dayWiseTables/"+day+".html","storage");
                 if (t){
                     merge();
                 } else{
