@@ -16,7 +16,7 @@ RUN pip install -r requirements.txt
 
 COPY . /Free-Space/
 
-RUN python tableGen.py $COOKIE_ID
+# RUN python tableGen.py $COOKIE_ID
 EXPOSE 8080
 
 CMD [ "python3","-m","http.server","8080" ]
