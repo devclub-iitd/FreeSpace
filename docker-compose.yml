@@ -8,6 +8,8 @@ services:
     ports: 
       - 8080:8080
     image: "${REGISTRY_NAME}devclubiitd/freespace:0.1"
+    environment:
+      - VIRTUAL_HOST
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080"]
       interval: 1m30s
