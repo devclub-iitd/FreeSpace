@@ -9,7 +9,7 @@
             var n = d.getDay();
             var h = d.getHours();
             var currDate = d.getDate();
-            var dic = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday"]
+            var dic = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
             var day;
             function latestSmallTable(){
                 day = currDate.toString()+dic[n];
@@ -33,12 +33,21 @@
                     if (dayDiff<0){
                         dayDiff+=7;
                     }
+                    console.log(dayDiff);
                     var stringDay = dic[t];
                     var futureDate=new Date();
                     futureDate.setDate(futureDate.getDate()+dayDiff);
                     day=(futureDate.getDate()).toString()+stringDay;
                 }else{
+                    // if (n==0){
+                    //     n+=1
+                    // }
                     var stringDay = dic[n]
+                    // if (n==0){
+                    //     var futureDate=new Date();
+                    //     futureDate.setDate(futureDate.getDate()+1);
+                    //     day=(futureDate.getDate()).toString()+stringDay;
+                    // }
                     day=currDate.toString()+ stringDay;
                 }
                 document.getElementById("currDay").innerHTML = stringDay+"'s Free Space";
@@ -85,11 +94,13 @@
             <div id="storage"></div>
             <br>
             <div id = "buttons">
+                <button class = "button button5" onclick="returnCurrDayTT(0)">Sunday</button>
                 <button class = "button button5" onclick="returnCurrDayTT(1)">Monday</button>
                 <button class = "button button5" onclick="returnCurrDayTT(2)">Tuesday</button>
                 <button class = "button button5" onclick="returnCurrDayTT(3)">Wednesday</button>
                 <button class = "button button5" onclick="returnCurrDayTT(4)">Thursday</button>
                 <button class = "button button5" onclick="returnCurrDayTT(5)">Friday</button>
+                <button class = "button button5" onclick="returnCurrDayTT(6)">Saturday</button>
             </div>
         <script>
         </script>
