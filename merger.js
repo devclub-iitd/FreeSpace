@@ -18,7 +18,7 @@ function preProcessTable(id){
 }
 function merge(){
     finalTable = preProcessTable("storage");
-    // finalTable has element 0 as thead w+hile the other as tbody
+    // finalTable has element 0 as thead while the other as tbody
     var table_body = finalTable[1];
     for (var i = 0,row; row = table_body.rows[i];i++){
         var col;     
@@ -73,9 +73,9 @@ function smallTableEdit(id){
     var table_head = tableF[0];
     try{
         table_head.rows[0].deleteCell(0);  //Removes an extra column.
-        // table_head.rows[0].deleteCell(0); //Removes the header 
+        table_head.rows[0].deleteCell(0); //Removes the header 
     }catch(err){}
-    finally{ }
+    finally{}
     // for (var i = 0,row;row = table_body.rows[i];i++){
     //     row.deleteCell(0);
     // }
@@ -87,7 +87,7 @@ function smallTableEdit(id){
     }
     for (var i = 0;i<table_list.length;i++){
         var currTable = table_list[i];
-        if (currTable.rows[0].cells.length == 1){
+        if (currTable.rows[0].cells.length <= 1){
         currTable.setAttribute("class","smallTables");
         }
     }
