@@ -38,7 +38,7 @@
                 latestSmallTable();
             }
             async function returnCurrDayTT(t){
-                if (t){
+                if (t != null){
                     var dayDiff = t - n;
                     if (dayDiff<0){
                         dayDiff+=7;
@@ -49,20 +49,12 @@
                     futureDate.setDate(futureDate.getDate()+dayDiff);
                     day=(futureDate.getDate()).toString()+stringDay;
                 }else{
-                    // if (n==0){
-                    //     n+=1
-                    // }
                     var stringDay = dic[n]
-                    // if (n==0){
-                    //     var futureDate=new Date();
-                    //     futureDate.setDate(futureDate.getDate()+1);
-                    //     day=(futureDate.getDate()).toString()+stringDay;
-                    // }
                     day=currDate.toString()+ stringDay;
                 }
                 document.getElementById("currDay").innerHTML = stringDay+"'s Free Space";
                 await accessByDOM("dayWiseTables/"+day+".html","storage");
-                if (t){
+                if (t != null){
                     merge();
                 } else{
                     merge();
