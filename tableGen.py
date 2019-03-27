@@ -1,7 +1,7 @@
-#!/usr/bin/env python
+
 # coding: utf-8
 
-# In[100]:
+# In[38]:
 
 
 from bs4 import BeautifulSoup
@@ -19,17 +19,17 @@ if (len(sys.argv) == 3):
     NO_OF_WEEKS_TO_SCRAPE=int(sys.argv[2])
 
 
-# In[101]:
+# In[39]:
 
 
 room_df_dict = {}
 
 
-# In[102]:
+# In[3]:
 
 
 cookie={
-    "PHPSESSID":sys.argv[1]
+    "PHPSESSID":(sys.argv[1])
 }
 url="http://roombooking.iitd.ac.in/book/" #add br(i) to this
 
@@ -61,7 +61,7 @@ br1 = "book_room"
 br2 = "show_rooms?capacity="+capacity+"&room_category_id="+rci
 
 
-# In[103]:
+# In[4]:
 
 
 w = requests.get(url+br2,cookies=cookie,headers=req_header,data={'capacity':capacity,'room_category_id':rci})
@@ -74,13 +74,13 @@ for i in dup_room_list:
         uniq_room_list.append(i)
 
 
-# In[104]:
+# In[5]:
 
 
 data = {'capacity':capacity, 'room_category_id':rci, 'room_no':'','date':''}
 
 
-# In[105]:
+# In[6]:
 
 
 def data_cleaner(needed_table):
@@ -105,7 +105,7 @@ def data_cleaner(needed_table):
     return needed_table
 
 
-# In[106]:
+# In[42]:
 
 
 with requests.Session() as s:
@@ -122,19 +122,22 @@ with requests.Session() as s:
             to_str_cleaned = str(cleaned)
             df = pd.read_html(to_str_cleaned)[0]
             dic = df.to_dict('list')
-            room_df_dict[j]=dic
+            if (j not in room_df_dict):
+                room_df_dict[j]=dic
+            else:
+                room_df_dict[j].update(dic)
 
     
 
 
-# In[107]:
+# In[44]:
 
 
 def getTimeList(room_df_dict):
     return room_df_dict[list(room_df_dict.keys())[0]]['Time']
 
 
-# In[108]:
+# In[45]:
 
 
 def getRoomList(room_df_dict):
@@ -146,14 +149,14 @@ def getRoomList(room_df_dict):
     return l
 
 
-# In[109]:
+# In[46]:
 
 
 def getDayList(room_df_dict):
     return list((room_df_dict[list(room_df_dict.keys())[0]]).keys())[1:]
 
 
-# In[110]:
+# In[47]:
 
 
 #room_df_dict is of the format Room:{Day1/Time:[Course1,Course2,...],Day2/Time:[...]}
@@ -171,7 +174,7 @@ def freeRoomsPerDay(room_df_dict):
     return dic_to_return    
 
 
-# In[111]:
+# In[54]:
 
 
 def dirStructureSet(room_df_dict):
@@ -190,16 +193,13 @@ def dirStructureSet(room_df_dict):
                 pattern = re.compile(r'[0-9]{4}-[0-9]{1,2}-([0-9]{1,2})\((.*)\)')
                 m = pattern.findall(i)
                 try:
-                    os.mkdir("smallTables/"+m[0][0]+m[0][1])
+                    os.mkdir("smallTables/"+(m[0][0]).lstrip("0")+(m[0][1]).lstrip("0"))
                 except FileExistsError:
-                    shutil.rmtree("smallTables/"+m[0][0]+m[0][1])
-                    os.mkdir("smallTables/"+m[0][0]+m[0][1])
+                    shutil.rmtree("smallTables/"+(m[0][0]).lstrip("0")+(m[0][1]).lstrip("0"))
+                    os.mkdir("smallTables/"+(m[0][0]).lstrip("0")+(m[0][1]).lstrip("0"))
 
 
-    
-
-
-# In[112]:
+# In[55]:
 
 
 def createDFfromDictLarge(new_room_df_dict,old_room_df_dict,folder):
@@ -208,10 +208,10 @@ def createDFfromDictLarge(new_room_df_dict,old_room_df_dict,folder):
         df_from_dict=pd.DataFrame.from_dict(currDay,orient='index',columns=getTimeList(old_room_df_dict))
         pattern = re.compile(r'[0-9]{4}-[0-9]{1,2}-([0-9]{1,2})\((.*)\)')
         m = pattern.findall(i)
-        df_from_dict.to_html(folder+"/"+m[0][0]+m[0][1]+".html")
+        df_from_dict.to_html(folder+"/"+(m[0][0]).lstrip("0")+(m[0][1]).lstrip("0")+".html")
 
 
-# In[113]:
+# In[56]:
 
 
 def createDFfromDictSmall(new_room_df_dict,folder):
@@ -222,10 +222,10 @@ def createDFfromDictSmall(new_room_df_dict,folder):
             pattern = re.compile(r'[0-9]{4}-[0-9]{1,2}-([0-9]{1,2})\((.*)\)')
             m = pattern.findall(i)
             df_from_dict=pd.DataFrame.from_dict({i:currTime},orient='columns')
-            df_from_dict.to_html(folder+"/"+m[0][0]+m[0][1]+"/"+j+".html")
+            df_from_dict.to_html(folder+"/"+(m[0][0]).lstrip("0")+(m[0][1]).lstrip("0")+"/"+j+".html")
 
 
-# In[114]:
+# In[57]:
 
 
 # Of the format Day:{Time:[Free_room1,Free_room2,...]}
@@ -249,7 +249,7 @@ def roomsPerHour(room_df_dict):
     return dic_to_return
 
 
-# In[115]:
+# In[58]:
 
 
 tl=getTimeList(room_df_dict)
@@ -258,22 +258,3 @@ d2=roomsPerHour(room_df_dict)
 dirStructureSet(room_df_dict)
 createDFfromDictLarge(d1,room_df_dict,"dayWiseTables")
 createDFfromDictSmall(d2,"smallTables")
-
-
-# In[51]:
-
-
-
-
-
-# In[62]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
