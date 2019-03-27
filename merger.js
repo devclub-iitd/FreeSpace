@@ -72,22 +72,24 @@ function smallTableEdit(id){
     var table_body = tableF[1];
     var table_head = tableF[0];
     try{
-        table_head.rows[0].deleteCell(0);
-        table_head.rows[0].deleteCell(0);
+        table_head.rows[0].deleteCell(0);  //Removes an extra column.
+        // table_head.rows[0].deleteCell(0); //Removes the header 
     }catch(err){}
     finally{ }
-    for (var i = 0,row;row = table_body.rows[i];i++){
-        row.deleteCell(0);
-    }
+    // for (var i = 0,row;row = table_body.rows[i];i++){
+    //     row.deleteCell(0);
+    // }
     if (table_body.rows.length == 0) {
         var addedRow = table_body.insertRow(0);
         var newCell = document.createElement('td');
         newCell = addedRow.insertCell(0);
         newCell.innerText = "All LHs are free."
     }
-    for (var i = 0;i<2;i++){
+    for (var i = 0;i<table_list.length;i++){
         var currTable = table_list[i];
+        if (currTable.rows[0].cells.length == 1){
         currTable.setAttribute("class","smallTables");
+        }
     }
 
 }
