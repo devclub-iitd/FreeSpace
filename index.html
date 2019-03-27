@@ -18,20 +18,31 @@
             var d = new Date();
             var n = d.getDay();
             var h = d.getHours();
+            var minutes = d.getMinutes();
             var currDate = d.getDate();
             var dic = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
             var day;
             function latestSmallTable(){
                 day = currDate.toString()+dic[n];
-                if (h>18){
-                    h=18;
+                if (h>19){
+                    h=19;
+                    minutes="20";
                 }else if(h<7){
-                    h=7;
+                    h=8;
+                    minutes="20";
                 }
-                accessByDOM("smallTables/"+day+"/"+(h+1)+":00.html","smallOnes");
-                accessByDOM("smallTables/"+day+"/"+(h+1)+":30.html","smallOnesAfterHalf");
-                document.getElementById("heading1").innerText = 'Empty Classrooms from '+(h+1)+":00";
-                document.getElementById("heading2").innerText = 'Empty Classrooms from '+(h+1)+":30";
+                var t1,m1,t2,m2;
+                if (minutes<30){
+                    t1=(h)+":00";
+                    t2=(h)+":30";
+                }else{
+                    t1=(h)+":30";
+                    t2=(h+1)+":00";
+                }
+                accessByDOM("smallTables/"+day+"/"+t1+".html","smallOnes");
+                accessByDOM("smallTables/"+day+"/"+t2+".html","smallOnesAfterHalf");
+                document.getElementById("heading1").innerText = 'Empty Classrooms from '+t1;
+                document.getElementById("heading2").innerText = 'Empty Classrooms from '+t2;
             }
             function allFunctionRun(){
                 returnCurrDayTT()

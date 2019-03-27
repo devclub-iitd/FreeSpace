@@ -16,9 +16,13 @@ th{
     text-align: center;
     height: 1cm;
     width: 5%;
+
     /* padding: 1%; */
 }
-
+.topRow{
+  position: sticky;
+  top: 0px;
+}
 
 /* tr:nth-child(even){
     background-color: #f2f2f2;
