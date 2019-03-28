@@ -20,7 +20,7 @@ function merge(){
     finalTable = preProcessTable("storage");
     // finalTable has element 0 as thead while the other as tbody
     var table_head_row = finalTable[0].rows[0];
-    for (var i= 0,col; col=table_head_row.cells[i];i++){
+    for (var i= 1,col; col=table_head_row.cells[i];i++){
         col.setAttribute("class","topRow");
     }
     var table_body = finalTable[1];
@@ -80,6 +80,9 @@ function smallTableEdit(id){
         table_head.rows[0].deleteCell(0); //Removes the header 
     }catch(err){}
     finally{}
+    for (var i = 0,row;row = table_body.rows[i];i++){
+        row.deleteCell(0);
+    }
     if (table_body.rows.length == 0) {
         var addedRow = table_body.insertRow(0);
         var newCell = document.createElement('td');

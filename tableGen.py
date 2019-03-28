@@ -193,10 +193,10 @@ def dirStructureSet(room_df_dict):
                 pattern = re.compile(r'[0-9]{4}-[0-9]{1,2}-([0-9]{1,2})\((.*)\)')
                 m = pattern.findall(i)
                 try:
-                    os.mkdir("smallTables/"+(m[0][0]).lstrip("0")+(m[0][1]).lstrip("0"))
+                    os.mkdir("smallTables/"+(m[0][0]).lstrip("0")+(m[0][1]))
                 except FileExistsError:
-                    shutil.rmtree("smallTables/"+(m[0][0]).lstrip("0")+(m[0][1]).lstrip("0"))
-                    os.mkdir("smallTables/"+(m[0][0]).lstrip("0")+(m[0][1]).lstrip("0"))
+                    shutil.rmtree("smallTables/"+(m[0][0]).lstrip("0")+(m[0][1]))
+                    os.mkdir("smallTables/"+(m[0][0]).lstrip("0")+(m[0][1]))
 
 
 # In[55]:
@@ -208,7 +208,7 @@ def createDFfromDictLarge(new_room_df_dict,old_room_df_dict,folder):
         df_from_dict=pd.DataFrame.from_dict(currDay,orient='index',columns=getTimeList(old_room_df_dict))
         pattern = re.compile(r'[0-9]{4}-[0-9]{1,2}-([0-9]{1,2})\((.*)\)')
         m = pattern.findall(i)
-        df_from_dict.to_html(folder+"/"+(m[0][0]).lstrip("0")+(m[0][1]).lstrip("0")+".html")
+        df_from_dict.to_html(folder+"/"+(m[0][0]).lstrip("0")+(m[0][1])+".html")
 
 
 # In[56]:
@@ -222,7 +222,7 @@ def createDFfromDictSmall(new_room_df_dict,folder):
             pattern = re.compile(r'[0-9]{4}-[0-9]{1,2}-([0-9]{1,2})\((.*)\)')
             m = pattern.findall(i)
             df_from_dict=pd.DataFrame.from_dict({i:currTime},orient='columns')
-            df_from_dict.to_html(folder+"/"+(m[0][0]).lstrip("0")+(m[0][1]).lstrip("0")+"/"+j+".html")
+            df_from_dict.to_html(folder+"/"+(m[0][0]).lstrip("0")+(m[0][1])+"/"+(j).lstrip("0")+".html")
 
 
 # In[57]:
