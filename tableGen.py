@@ -63,7 +63,7 @@ br2 = "show_rooms?capacity="+capacity+"&room_category_id="+rci
 
 # In[4]:
 
-
+print("Started")
 w = requests.get(url+br2,cookies=cookie,headers=req_header,data={'capacity':capacity,'room_category_id':rci})
 room_list = w.text
 match = r"LH [0-9]{3}"
@@ -72,7 +72,7 @@ dup_room_list = pattern.findall(room_list)
 for i in dup_room_list:
     if i not in uniq_room_list:
         uniq_room_list.append(i)
-
+print("Unique room list created")
 
 # In[5]:
 
@@ -109,8 +109,10 @@ def data_cleaner(needed_table):
 
 
 with requests.Session() as s:
-    for i in date_list: #Take a date
-        for j in uniq_room_list: #Take a room
+    for ci,i in enumerate(date_list): #Take a date
+        for cj,j in enumerate(uniq_room_list): #Take a room
+            print("Fetching data : Week " + str(ci + 1) + " of " + str(len(date_list)) + " , ", end="")
+            print(" Room "+str(cj+1)+" of "+str(len(uniq_room_list))+"...")
             data['room_no']=j
             data['date']=i
             r = requests.post(url=(url+br1),cookies=cookie,headers=req_header,data=data)
@@ -256,5 +258,7 @@ tl=getTimeList(room_df_dict)
 d1=freeRoomsPerDay(room_df_dict)
 d2=roomsPerHour(room_df_dict)
 dirStructureSet(room_df_dict)
+print("Saving tables..")
 createDFfromDictLarge(d1,room_df_dict,"dayWiseTables")
 createDFfromDictSmall(d2,"smallTables")
+print("Finished successfully")
